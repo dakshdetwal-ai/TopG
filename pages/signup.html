@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — TopG Algo</title>
+<link rel="stylesheet" href="../css/signup.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="auth-wrapper">
+
+  <!-- ===== Logo ===== -->
+  <a href="../index.html" class="auth-logo">TOPG<span>ALGO</span></a>
+
+  <!-- ===== Signup Card ===== -->
+  <div class="auth-card">
+    <h1 class="auth-title">Create Your Account</h1>
+    <p class="auth-subtitle">Get started with the TopG Algo trading platform.</p>
+
+    <!-- Global error / success banner -->
+    <div class="auth-banner" id="authBanner"></div>
+
+    <form id="signupForm" novalidate>
+      <!-- Full Name -->
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="John Doe" autocomplete="name">
+        <span class="field-error" id="fullNameError"></span>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+        <span class="field-error" id="emailError"></span>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-field">
+          <input type="password" id="password" name="password" placeholder="Create a password" autocomplete="new-password">
+          <button type="button" class="toggle-password" data-target="password" aria-label="Show password">
+            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+        <span class="field-error" id="passwordError"></span>
+        <div class="password-strength" id="passwordStrength">
+          <div class="strength-bar"><span id="strengthFill"></span></div>
+          <span class="strength-label" id="strengthLabel"></span>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="password-field">
+          <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" autocomplete="new-password">
+          <button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Show password">
+            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+        <span class="field-error" id="confirmPasswordError"></span>
+      </div>
+
+      <!-- Terms checkbox -->
+      <div class="form-group terms-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="termsCheckbox">
+          <span class="checkbox-custom"></span>
+          I agree to the <a href="../index.html#faq" target="_blank">Terms of Service</a> and <a href="../index.html#faq" target="_blank">Risk Disclosure</a>
+        </label>
+        <span class="field-error" id="termsError"></span>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span class="btn-text">Create Account</span>
+        <span class="btn-spinner" id="btnSpinner"></span>
+      </button>
+    </form>
+
+    <p class="auth-footer-link">
+      Already have an account? <a href="login.html">Log in</a>
+    </p>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="auth-footer">
+    <a href="../index.html#faq">Privacy Policy</a>
+    <span class="dot">•</span>
+    <a href="../index.html#faq">Terms of Service</a>
+    <span class="dot">•</span>
+    <a href="../index.html#faq">Risk Disclosure</a>
+  </footer>
+
+</div>
+
+<script src="../js/signup.js"></script>
+</body>
+</html>
