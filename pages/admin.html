@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard | TopG Algo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="../index.html" class="logo">TopG<span>Algo</span></a>
+    <div class="admin-pill">ADMIN</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" data-section="overview">
+      <span class="nav-icon">🧭</span> Overview
+    </a>
+    <a href="#" class="nav-item" data-section="users">
+      <span class="nav-icon">👥</span> User Management
+    </a>
+    <a href="#" class="nav-item" data-section="applications">
+      <span class="nav-icon">📝</span> Applications
+    </a>
+    <a href="#" class="nav-item" data-section="analytics">
+      <span class="nav-icon">📈</span> Platform Analytics
+    </a>
+    <a href="#" class="nav-item" data-section="system">
+      <span class="nav-icon">🖥️</span> System Status
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="login.html" class="nav-item logout-item">
+      <span class="nav-icon">🚪</span> Logout
+    </a>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Main -->
+<main class="main-content">
+
+  <header class="topbar">
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    <div class="topbar-left">
+      <h1>Admin Control Panel</h1>
+      <span class="section-crumb" id="sectionCrumb">/ Overview</span>
+      <span class="status-badge">Demo Preview</span>
+    </div>
+    <div class="topbar-right">
+      <div class="profile-circle">A</div>
+    </div>
+  </header>
+
+  <div class="content-area">
+
+    <div class="sample-notice">
+      ⚠️ <strong>DEMO DATA — NOT LIVE.</strong> Every user, application, and activity record on this page is randomly generated for preview purposes. No real accounts exist yet.
+    </div>
+    <div class="security-notice">
+      🔒 <strong>Security Note:</strong> This page is a visual prototype only. Approve/reject, suspend/reactivate, and all other admin actions shown here do not perform real changes. Real admin permissions and user-management enforcement will be implemented on the backend.
+    </div>
+
+    <!-- ============ OVERVIEW ============ -->
+    <section class="admin-section active" id="section-overview">
+      <div class="section-header-row">
+        <h2>Platform Overview <span class="demo-tag">DEMO</span></h2>
+        <button class="btn-ghost" id="resetDemoBtn">↺ Reset Demo Data</button>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="summary-label">Total Registered Users</div>
+          <div class="summary-value" id="statTotalUsers">0</div>
+          <div class="summary-sub">All demo accounts</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Pending Applications</div>
+          <div class="summary-value warning" id="statPendingApps">0</div>
+          <div class="summary-sub">Awaiting review</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Approved Users</div>
+          <div class="summary-value" id="statApprovedApps">0</div>
+          <div class="summary-sub">From applications</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Active Users</div>
+          <div class="summary-value" id="statActiveUsers">0</div>
+          <div class="summary-sub">Not suspended</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Recent Activity <span class="demo-tag">DEMO</span></h2>
+        </div>
+        <ul class="activity-log" id="activityLogOverview"></ul>
+      </div>
+    </section>
+
+    <!-- ============ USER MANAGEMENT ============ -->
+    <section class="admin-section" id="section-users">
+      <div class="section-header-row">
+        <h2>User Management <span class="demo-tag">DEMO</span></h2>
+      </div>
+
+      <div class="toolbar">
+        <input type="text" id="userSearch" class="toolbar-input" placeholder="Search by name or email..." />
+        <select id="userStatusFilter" class="toolbar-select">
+          <option value="all">All Statuses</option>
+          <option value="active">Active</option>
+          <option value="suspended">Suspended</option>
+        </select>
+        <span class="result-count" id="userResultCount">0 users</span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Registered</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ APPLICATIONS ============ -->
+    <section class="admin-section" id="section-applications">
+      <div class="section-header-row">
+        <h2>Application Management <span class="demo-tag">DEMO</span></h2>
+      </div>
+
+      <div class="toolbar">
+        <input type="text" id="appSearch" class="toolbar-input" placeholder="Search by name or email..." />
+        <select id="appStatusFilter" class="toolbar-select">
+          <option value="all">All Statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <span class="result-count" id="appResultCount">0 applications</span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Applicant</th>
+              <th>Email</th>
+              <th>Applied On</th>
+              <th>Experience</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="appsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ PLATFORM ANALYTICS ============ -->
+    <section class="admin-section" id="section-analytics">
+      <div class="section-header-row">
+        <h2>Platform Analytics <span class="demo-tag">DEMO</span></h2>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>User Registrations <span class="demo-tag">DEMO</span></h2>
+            <span class="panel-sub-label">Last 6 months</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="registrationChart"></canvas>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Application Outcomes <span class="demo-tag">DEMO</span></h2>
+          </div>
+          <div class="chart-wrap small">
+            <canvas id="approvalChart"></canvas>
+          </div>
+          <div class="chart-legend-stats">
+            <div><span class="dot approved"></span> Approved <strong id="legendApproved">0</strong></div>
+            <div><span class="dot pending"></span> Pending <strong id="legendPending">0</strong></div>
+            <div><span class="dot rejected"></span> Rejected <strong id="legendRejected">0</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Full Activity Log <span class="demo-tag">DEMO</span></h2>
+        </div>
+        <ul class="activity-log" id="activityLogFull"></ul>
+      </div>
+    </section>
+
+    <!-- ============ SYSTEM STATUS ============ -->
+    <section class="admin-section" id="section-system">
+      <div class="section-header-row">
+        <h2>System Status <span class="demo-tag">DEMO</span></h2>
+        <button class="btn-ghost" id="recheckBtn">🔄 Re-check Status</button>
+      </div>
+
+      <div class="status-grid">
+        <div class="status-card">
+          <div class="status-dot online"></div>
+          <div>
+            <div class="status-title">Frontend Status</div>
+            <div class="status-value online-text">Online</div>
+            <div class="status-desc">Static site is live and serving pages via GitHub Pages.</div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="status-dot offline"></div>
+          <div>
+            <div class="status-title">Backend Connection</div>
+            <div class="status-value offline-text">Not Connected</div>
+            <div class="status-desc">Supabase backend has not been integrated yet. No real data is read or written.</div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="status-dot offline"></div>
+          <div>
+            <div class="status-title">Trading Engine</div>
+            <div class="status-value offline-text">Not Connected</div>
+            <div class="status-desc">No live trading engine is connected. No real trades can be placed or executed.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="status-note">Last checked: <span id="lastChecked">just now</span>. This status panel is a static preview — no real system health check is performed by this button.</p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="save-toast" id="saveToast">✅ Action recorded (demo only — not synced to backend)</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
