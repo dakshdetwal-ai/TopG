@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Performance Analytics | TopG Algo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/performance-analytics.css" />
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="../index.html" class="logo">TopG<span>Algo</span></a>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item">
+      <span class="nav-icon">📊</span> Overview
+    </a>
+    <a href="trade-history.html" class="nav-item">
+      <span class="nav-icon">🕘</span> Trade History
+    </a>
+    <a href="bot-settings.html" class="nav-item">
+      <span class="nav-icon">⚙️</span> Bot Settings
+    </a>
+    <a href="performance-analytics.html" class="nav-item active">
+      <span class="nav-icon">📈</span> Performance Analytics
+    </a>
+    <a href="account-settings.html" class="nav-item">
+      <span class="nav-icon">👤</span> Account Settings
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="login.html" class="nav-item logout-item">
+      <span class="nav-icon">🚪</span> Logout
+    </a>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Main -->
+<main class="main-content">
+
+  <header class="topbar">
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    <div class="topbar-left">
+      <h1>Performance Analytics</h1>
+      <span class="status-badge">Demo Preview</span>
+    </div>
+    <div class="topbar-right">
+      <div class="profile-circle">D</div>
+    </div>
+  </header>
+
+  <div class="content-area">
+
+    <div class="sample-notice">
+      ⚠️ <strong>DEMO DATA — NOT LIVE PERFORMANCE.</strong> All charts, statistics, and figures on this page are generated from randomized sample trades for preview purposes only. None of it reflects real trading results, and no live account is connected.
+    </div>
+
+    <!-- Summary Cards -->
+    <section class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-label">Total Net P/L</div>
+        <div class="summary-value" id="totalPL">$0.00</div>
+        <div class="summary-sub">Selected timeframe · Demo</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Win Rate</div>
+        <div class="summary-value" id="winRate">0%</div>
+        <div class="summary-sub">Selected timeframe · Demo</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Profit Factor</div>
+        <div class="summary-value" id="profitFactor">0.00</div>
+        <div class="summary-sub">Gross profit ÷ gross loss</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Max Drawdown</div>
+        <div class="summary-value negative" id="maxDrawdown">0%</div>
+        <div class="summary-sub">Peak-to-trough · Demo</div>
+      </div>
+    </section>
+
+    <!-- Equity Curve -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Equity Curve <span class="demo-tag">DEMO</span></h2>
+        <div class="timeframe-filters" id="timeframeFilters">
+          <button class="tf-btn" data-range="7">7D</button>
+          <button class="tf-btn active" data-range="30">30D</button>
+          <button class="tf-btn" data-range="90">90D</button>
+          <button class="tf-btn" data-range="all">All Time</button>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="equityChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Trading Statistics -->
+    <section class="stats-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Winning vs Losing Trades <span class="demo-tag">DEMO</span></h2>
+        </div>
+        <div class="chart-wrap small">
+          <canvas id="winLossChart"></canvas>
+        </div>
+        <div class="chart-legend-stats">
+          <div><span class="dot win"></span> Wins <strong id="winCount">0</strong></div>
+          <div><span class="dot loss"></span> Losses <strong id="lossCount">0</strong></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Buy vs Sell Performance <span class="demo-tag">DEMO</span></h2>
+        </div>
+        <div class="chart-wrap small">
+          <canvas id="buySellChart"></canvas>
+        </div>
+        <div class="chart-legend-stats">
+          <div><span class="dot buy"></span> Buy <strong id="buyCount">0</strong> trades</div>
+          <div><span class="dot sell"></span> Sell <strong id="sellCount">0</strong> trades</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Trade Extremes <span class="demo-tag">DEMO</span></h2>
+        </div>
+        <div class="extremes-list">
+          <div class="extreme-row">
+            <span>Average Win</span>
+            <strong class="positive" id="avgWin">$0.00</strong>
+          </div>
+          <div class="extreme-row">
+            <span>Average Loss</span>
+            <strong class="negative" id="avgLoss">$0.00</strong>
+          </div>
+          <div class="extreme-row">
+            <span>Best Trade</span>
+            <strong class="positive" id="bestTrade">$0.00</strong>
+          </div>
+          <div class="extreme-row">
+            <span>Worst Trade</span>
+            <strong class="negative" id="worstTrade">$0.00</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Performance by Day -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Performance by Day <span class="demo-tag">DEMO</span></h2>
+        <span class="panel-sub-label">Last 30 calendar days</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="dailyPLChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Export -->
+    <section class="export-panel">
+      <div>
+        <h2>Export Analytics</h2>
+        <p>Download the current sample dataset as a CSV file. This file contains demo data only and does not represent real trading activity.</p>
+      </div>
+      <button class="btn-export" id="exportBtn">⬇️ Export Sample CSV</button>
+    </section>
+
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="js/performance-analytics.js"></script>
+</body>
+</html>
