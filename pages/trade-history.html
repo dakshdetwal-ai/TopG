@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade History — TopG Algo</title>
+<link rel="stylesheet" href="css/trade-history.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <a href="../index.html" class="auth-logo">TOPG<span>ALGO</span></a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="dashboard.html#overview" class="nav-item">
+        <span class="nav-icon">📊</span> Overview
+      </a>
+      <a href="dashboard.html#performance" class="nav-item">
+        <span class="nav-icon">📈</span> Trading Performance
+      </a>
+      <a href="trade-history.html" class="nav-item active">
+        <span class="nav-icon">🕘</span> Trade History
+      </a>
+      <a href="dashboard.html#bot-settings" class="nav-item">
+        <span class="nav-icon">⚙️</span> Bot Settings
+      </a>
+      <a href="dashboard.html#account-settings" class="nav-item">
+        <span class="nav-icon">👤</span> Account Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="login.html" class="nav-item logout-item">
+        <span class="nav-icon">🚪</span> Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== Sidebar overlay (mobile) ===== -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- ===== Top Bar ===== -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div>
+          <h1 class="welcome-text">Trade History</h1>
+          <span class="status-badge">Demo Preview</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <select class="demo-select" id="accountSelector">
+          <option>Demo Account — #10293</option>
+        </select>
+        <button class="btn-export" id="exportCsvBtn">⬇ Export CSV</button>
+        <div class="profile-icon">D</div>
+      </div>
+    </header>
+
+    <div class="content-scroll">
+
+      <!-- ===== Sample Data Notice ===== -->
+      <div class="sample-notice">
+        ⚠️ All trades shown below are <strong>sample/demo data</strong> for preview purposes only. No real trading account or MT5 connection exists yet.
+      </div>
+
+      <!-- ===== Summary Cards ===== -->
+      <section class="stats-section">
+        <div class="dash-stats-grid">
+          <div class="dash-stat-card">
+            <p class="dash-stat-label">Total Trades</p>
+            <h3 class="dash-stat-value" id="totalTradesStat">0</h3>
+          </div>
+          <div class="dash-stat-card positive">
+            <p class="dash-stat-label">Winning Trades</p>
+            <h3 class="dash-stat-value" id="winningTradesStat">0</h3>
+          </div>
+          <div class="dash-stat-card negative">
+            <p class="dash-stat-label">Losing Trades</p>
+            <h3 class="dash-stat-value" id="losingTradesStat">0</h3>
+          </div>
+          <div class="dash-stat-card" id="netPlCard">
+            <p class="dash-stat-label">Net Profit/Loss</p>
+            <h3 class="dash-stat-value" id="netPlStat">$0.00</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Filters ===== -->
+      <section class="filters-section">
+        <div class="filters-row">
+          <div class="filter-group">
+            <label>Date Range</label>
+            <select id="dateRangeFilter">
+              <option value="all">All Time</option>
+              <option value="7d">Last 7 Days</option>
+              <option value="30d">Last 30 Days</option>
+              <option value="90d">Last 90 Days</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Symbol</label>
+            <select id="symbolFilter">
+              <option value="all">All Symbols</option>
+              <option value="XAUUSD">XAUUSD</option>
+              <option value="EURUSD">EURUSD</option>
+              <option value="GBPUSD">GBPUSD</option>
+              <option value="USDJPY">USDJPY</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Type</label>
+            <select id="typeFilter">
+              <option value="all">Buy / Sell</option>
+              <option value="Buy">Buy Only</option>
+              <option value="Sell">Sell Only</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Result</label>
+            <select id="resultFilter">
+              <option value="all">Win / Loss</option>
+              <option value="win">Wins Only</option>
+              <option value="loss">Losses Only</option>
+            </select>
+          </div>
+
+          <div class="filter-group search-group">
+            <label>Search Trade ID</label>
+            <input type="text" id="searchInput" placeholder="e.g. TG-10234">
+          </div>
+
+          <button class="btn-reset" id="resetFiltersBtn">Reset</button>
+        </div>
+      </section>
+
+      <!-- ===== Trade History Table ===== -->
+      <section class="trades-section">
+        <div class="section-header-row">
+          <h2 class="section-heading">All Trades <span class="demo-tag">Sample Data</span></h2>
+          <div class="sort-controls">
+            <label>Sort by:</label>
+            <select id="sortSelect">
+              <option value="date-desc">Date (Newest First)</option>
+              <option value="date-asc">Date (Oldest First)</option>
+              <option value="pl-desc">P/L (High to Low)</option>
+              <option value="pl-asc">P/L (Low to High)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="trades-table" id="historyTable">
+            <thead>
+              <tr>
+                <th>Trade ID</th>
+                <th>Date & Time</th>
+                <th>Symbol</th>
+                <th>Type</th>
+                <th>Lot Size</th>
+                <th>Entry</th>
+                <th>Exit</th>
+                <th>SL</th>
+                <th>TP</th>
+                <th>P/L</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <p class="results-count" id="resultsCount"></p>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ===== Trade Details Panel ===== -->
+<div class="details-overlay" id="detailsOverlay"></div>
+<div class="details-panel" id="detailsPanel">
+  <div class="details-header">
+    <h3>Trade Details</h3>
+    <button class="details-close" id="detailsClose">&times;</button>
+  </div>
+  <div class="details-body" id="detailsBody">
+    <!-- Populated by JS -->
+  </div>
+</div>
+
+<script src="js/trade-history.js"></script>
+</body>
+</html>
