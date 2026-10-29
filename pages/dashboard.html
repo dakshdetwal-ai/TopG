@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — TopG Algo</title>
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <a href="../index.html" class="auth-logo">TOPG<span>ALGO</span></a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#overview" class="nav-item active" data-section="overview">
+        <span class="nav-icon">📊</span> Overview
+      </a>
+      <a href="#performance" class="nav-item" data-section="performance">
+        <span class="nav-icon">📈</span> Trading Performance
+      </a>
+      <a href="history.html" class="nav-item">
+        <span class="nav-icon">🕘</span> Trade History
+      </a>
+      <a href="#bot-settings" class="nav-item" data-section="bot-settings">
+        <span class="nav-icon">⚙️</span> Bot Settings
+      </a>
+      <a href="#account-settings" class="nav-item" data-section="account-settings">
+        <span class="nav-icon">👤</span> Account Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="login.html" class="nav-item logout-item">
+        <span class="nav-icon">🚪</span> Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== Sidebar overlay (mobile) ===== -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- ===== Top Bar ===== -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div>
+          <h1 class="welcome-text">Welcome to TopG Algo</h1>
+          <span class="status-badge">Demo Preview</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="profile-icon">D</div>
+      </div>
+    </header>
+
+    <div class="content-scroll">
+
+      <!-- ===== Sample Data Notice ===== -->
+      <div class="sample-notice">
+        ⚠️ All figures, charts and trades shown below are <strong>sample/demo data</strong> for preview purposes only. No real trading account is connected.
+      </div>
+
+      <!-- ===== Account Statistics ===== -->
+      <section class="stats-section" id="overview">
+        <h2 class="section-heading">Account Overview</h2>
+        <div class="dash-stats-grid">
+          <div class="dash-stat-card">
+            <p class="dash-stat-label">Account Balance</p>
+            <h3 class="dash-stat-value">$10,482.50</h3>
+          </div>
+          <div class="dash-stat-card">
+            <p class="dash-stat-label">Equity</p>
+            <h3 class="dash-stat-value">$10,536.20</h3>
+          </div>
+          <div class="dash-stat-card positive">
+            <p class="dash-stat-label">Today's P/L</p>
+            <h3 class="dash-stat-value">+$128.40</h3>
+          </div>
+          <div class="dash-stat-card">
+            <p class="dash-stat-label">Total Trades</p>
+            <h3 class="dash-stat-value">142</h3>
+          </div>
+          <div class="dash-stat-card">
+            <p class="dash-stat-label">Win Rate</p>
+            <h3 class="dash-stat-value">67.6%</h3>
+          </div>
+          <div class="dash-stat-card negative">
+            <p class="dash-stat-label">Max Drawdown</p>
+            <h3 class="dash-stat-value">-9.2%</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Performance Chart ===== -->
+      <section class="chart-section" id="performance">
+        <div class="section-header-row">
+          <h2 class="section-heading">Equity Curve <span class="demo-tag">Sample Data</span></h2>
+          <div class="chart-filters">
+            <button class="filter-btn" data-range="1D">1D</button>
+            <button class="filter-btn" data-range="7D">7D</button>
+            <button class="filter-btn active" data-range="30D">30D</button>
+            <button class="filter-btn" data-range="All">All</button>
+          </div>
+        </div>
+        <div class="chart-card">
+          <canvas id="equityChart"></canvas>
+        </div>
+      </section>
+
+      <!-- ===== Bot Control Panel ===== -->
+      <section class="bot-section" id="bot-settings">
+        <h2 class="section-heading">Bot Control Panel <span class="demo-tag">Preview Only</span></h2>
+        <div class="bot-card">
+          <div class="bot-status-row">
+            <div class="bot-status-info">
+              <span class="bot-status-dot" id="botStatusDot"></span>
+              <span class="bot-status-text" id="botStatusText">Stopped</span>
+            </div>
+            <div class="bot-buttons">
+              <button class="btn-bot btn-start" id="startBotBtn">Start Bot</button>
+              <button class="btn-bot btn-stop" id="stopBotBtn" disabled>Stop Bot</button>
+            </div>
+          </div>
+
+          <div class="bot-settings-grid">
+            <div class="bot-setting-item">
+              <span class="setting-label">Strategy</span>
+              <span class="setting-value">TopG Algo</span>
+            </div>
+            <div class="bot-setting-item">
+              <span class="setting-label">Trading Symbol</span>
+              <span class="setting-value">XAUUSD</span>
+            </div>
+            <div class="bot-setting-item editable">
+              <span class="setting-label">Risk Per Trade</span>
+              <div class="risk-edit">
+                <input type="range" id="riskSlider" min="0.1" max="5" step="0.1" value="0.5">
+                <span class="setting-value" id="riskValue">0.5%</span>
+              </div>
+            </div>
+          </div>
+          <p class="bot-disclaimer">This is a frontend preview only. No bot is actually running and no real trades are placed.</p>
+        </div>
+      </section>
+
+      <!-- ===== Recent Trades Table ===== -->
+      <section class="trades-section">
+        <div class="section-header-row">
+          <h2 class="section-heading">Recent Trades <span class="demo-tag">Sample Data</span></h2>
+          <div class="table-filters">
+            <button class="table-filter-btn active" data-filter="all">All</button>
+            <button class="table-filter-btn" data-filter="win">Wins</button>
+            <button class="table-filter-btn" data-filter="loss">Losses</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="trades-table" id="tradesTable">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Direction</th>
+                <th>Entry Price</th>
+                <th>Exit Price</th>
+                <th>Profit/Loss</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tradesTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== Account Settings (placeholder section) ===== -->
+      <section class="account-section" id="account-settings">
+        <h2 class="section-heading">Account Settings</h2>
+        <div class="account-card">
+          <p class="account-placeholder-text">
+            Account settings (profile details, password change, connected trading accounts) will be available once backend integration is complete.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
