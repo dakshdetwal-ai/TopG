@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account Settings — TopG Algo</title>
+<link rel="stylesheet" href="css/account-settings.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <a href="../index.html" class="auth-logo">TOPG<span>ALGO</span></a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="dashboard.html#overview" class="nav-item">
+        <span class="nav-icon">📊</span> Overview
+      </a>
+      <a href="trade-history.html" class="nav-item">
+        <span class="nav-icon">🕘</span> Trade History
+      </a>
+      <a href="bot-settings.html" class="nav-item">
+        <span class="nav-icon">⚙️</span> Bot Settings
+      </a>
+      <a href="dashboard.html#performance" class="nav-item">
+        <span class="nav-icon">📈</span> Performance Analytics
+      </a>
+      <a href="account-settings.html" class="nav-item active">
+        <span class="nav-icon">👤</span> Account Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="login.html" class="nav-item logout-item">
+        <span class="nav-icon">🚪</span> Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== Sidebar overlay (mobile) ===== -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- ===== Top Bar ===== -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div>
+          <h1 class="welcome-text">Account Settings</h1>
+          <span class="status-badge">Demo Preview</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="profile-icon">D</div>
+      </div>
+    </header>
+
+    <div class="content-scroll">
+
+      <!-- ===== Sample Data Notice ===== -->
+      <div class="sample-notice">
+        ⚠️ This is a <strong>frontend demo</strong>. No profile changes, password updates, security operations or account deletions are actually processed yet.
+      </div>
+
+      <!-- ===== Save confirmation toast ===== -->
+      <div class="save-toast" id="saveToast">✓ Changes saved successfully (locally only)</div>
+
+      <!-- ===== Profile Information ===== -->
+      <section class="settings-section">
+        <h2 class="section-heading">Profile Information</h2>
+        <div class="settings-card">
+          <div class="profile-header">
+            <div class="avatar-wrapper">
+              <img src="https://api.dicebear.com/7.x/initials/svg?seed=Daksh&backgroundColor=10d97a&textColor=04130b" alt="Profile Avatar" id="avatarPreview" class="avatar-img">
+              <label for="avatarUpload" class="avatar-edit-btn">✎</label>
+              <input type="file" id="avatarUpload" accept="image/*" hidden>
+            </div>
+            <div class="profile-header-info">
+              <h3 id="profileDisplayName">Daksh Detwal</h3>
+              <p id="profileDisplayEmail">daksh@example.com</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" value="Daksh Detwal">
+              <span class="field-error" id="fullNameError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" value="daksh@example.com">
+              <span class="field-error" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="optional">(optional)</span></label>
+              <input type="tel" id="phone" placeholder="+91 98765 43210">
+              <span class="field-error" id="phoneError"></span>
+            </div>
+          </div>
+
+          <button class="btn-primary-action" id="editProfileBtn">Edit Profile</button>
+        </div>
+      </section>
+
+      <!-- ===== Security ===== -->
+      <section class="settings-section">
+        <h2 class="section-heading">Security <span class="demo-tag">Preview Only</span></h2>
+        <div class="settings-card">
+
+          <!-- Change Password -->
+          <div class="security-block">
+            <h4>Change Password</h4>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" placeholder="Enter current password">
+              </div>
+              <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" placeholder="Enter new password">
+              </div>
+              <div class="form-group">
+                <label for="confirmNewPassword">Confirm New Password</label>
+                <input type="password" id="confirmNewPassword" placeholder="Re-enter new password">
+              </div>
+            </div>
+            <span class="field-error" id="passwordChangeError"></span>
+            <button class="btn-secondary-action" id="changePasswordBtn">Update Password</button>
+          </div>
+
+          <div class="security-divider"></div>
+
+          <!-- 2FA -->
+          <div class="setting-row">
+            <div class="setting-info">
+              <label>Two-Factor Authentication</label>
+              <p class="setting-desc">Add an extra layer of security to your account.</p>
+            </div>
+            <span class="status-pill not-connected">Not Connected</span>
+          </div>
+
+          <div class="security-divider"></div>
+
+          <!-- Active Sessions -->
+          <div class="security-block">
+            <h4>Active Sessions <span class="demo-tag">Sample Data</span></h4>
+            <div class="sessions-list">
+              <div class="session-item">
+                <div class="session-info">
+                  <span class="session-device">🖥️ Windows — Chrome</span>
+                  <span class="session-meta">New Delhi, India · Current session</span>
+                </div>
+                <span class="status-pill active-session">Active</span>
+              </div>
+              <div class="session-item">
+                <div class="session-info">
+                  <span class="session-device">📱 Android — Chrome Mobile</span>
+                  <span class="session-meta">New Delhi, India · 2 days ago</span>
+                </div>
+                <button class="btn-revoke" data-session="2">Revoke</button>
+              </div>
+              <div class="session-item">
+                <div class="session-info">
+                  <span class="session-device">🖥️ MacOS — Safari</span>
+                  <span class="session-meta">Mumbai, India · 6 days ago</span>
+                </div>
+                <button class="btn-revoke" data-session="3">Revoke</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== Preferences ===== -->
+      <section class="settings-section">
+        <h2 class="section-heading">Preferences</h2>
+        <div class="settings-card">
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <label>Theme</label>
+              <p class="setting-desc">Switch between dark and light appearance.</p>
+            </div>
+            <div class="theme-toggle-group">
+              <span class="theme-label" id="themeLabel">Dark</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <label>Email Notifications</label>
+              <p class="setting-desc">Receive account and platform updates via email.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="emailNotifications" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <label>Trade Alerts</label>
+              <p class="setting-desc">Get notified when trades are opened or closed.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="tradeAlerts" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <label>Weekly Performance Summary</label>
+              <p class="setting-desc">Receive a weekly email summarizing your trading performance.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="weeklySummary">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <button class="btn-primary-action" id="savePreferencesBtn">Save Preferences</button>
+        </div>
+      </section>
+
+      <!-- ===== Danger Zone ===== -->
+      <section class="settings-section">
+        <h2 class="section-heading danger-heading">Danger Zone</h2>
+        <div class="settings-card danger-card">
+          <div class="setting-row">
+            <div class="setting-info">
+              <label>Delete Account</label>
+              <p class="setting-desc">Permanently delete your account and all associated data. This action cannot be undone.</p>
+            </div>
+            <button class="btn-delete" id="deleteAccountBtn">Delete Account</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ===== Delete Confirmation Modal ===== -->
+<div class="modal-overlay" id="deleteModalOverlay">
+  <div class="modal-box">
+    <div class="modal-icon">⚠️</div>
+    <h3>Delete Your Account?</h3>
+    <p>This is a frontend demo — no account will actually be deleted. In the real platform, this action would be permanent and cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel-modal" id="cancelDeleteBtn">Cancel</button>
+      <button class="btn-confirm-delete" id="confirmDeleteBtn">Yes, Delete (Demo)</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/account-settings.js"></script>
+</body>
+</html>
